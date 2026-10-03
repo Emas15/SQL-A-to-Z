@@ -6,7 +6,7 @@
 --and we mainly use group by where one thing appears more than once
 
 SELECT
-	country,
+	country, -- IF IF WANNA HAVE MULTIPLE COLUMN HERE I MUST GROUP BY ALL OF THEM AS WELL
 	SUM(score) AS total_score
 
 FROM customers

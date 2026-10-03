@@ -45,4 +45,7 @@ WHERE c.id IS NULL
 
 
 
+--use case:
+-- using it as a filter to check existence
+
 
