@@ -13,6 +13,21 @@ CREATE TABLE persons (
 
 	-- primary key : -> to make sure the table has a integrity and connectable to other tables
 	CONSTRAINT pk_person PRIMARY KEY (id) --> here pk_person is just a name of the primary key, it can be anything
+)
+	--alternative way of setting PK:
+	CREATE TABLE students (
+    student_id INT PRIMARY KEY, --> alternative way
+    name VARCHAR(100),
+    age INT
+	);
+
+
+--auto increment:
+CREATE TABLE students (
+    student_id INT AUTO_INCREMENT PRIMARY KEY, --> this is for mysql
+    name VARCHAR(100),
+    age INT
+);
 
 
 	/*
@@ -83,3 +98,56 @@ A primary key is the anchor of a table. Without it, the database wouldn’t know
 
 
 
+-- You can set a **Primary Key (PK)** in SQL in a couple of different ways when creating a table. Here are the main approaches:
+
+-- ---
+
+-- ### ✅ Method 1: Inline Primary Key
+-- Define the primary key directly on the column:
+-- ```sql
+-- CREATE TABLE students (
+--     student_id INT PRIMARY KEY,
+--     name VARCHAR(100),
+--     age INT
+-- );
+-- ```
+-- Here, `student_id` is the primary key.
+
+-- ---
+
+-- ### ✅ Method 2: Table-Level Primary Key
+-- Declare the primary key at the end of the column list:
+-- ```sql
+-- CREATE TABLE students (
+--     student_id INT,
+--     name VARCHAR(100),
+--     age INT,
+--     CONSTRAINT pk_students PRIMARY KEY (student_id)
+-- );
+-- ```
+-- This lets you **name the constraint** (`pk_students`) and is useful if you want more control.
+
+-- ---
+
+-- ### ✅ Method 3: Composite Primary Key
+-- Use multiple columns together as the primary key:
+-- ```sql
+-- CREATE TABLE enrollments (
+--     student_id INT,
+--     course_id INT,
+--     enrollment_date DATE,
+--     CONSTRAINT pk_enrollments PRIMARY KEY (student_id, course_id)
+-- );
+-- ```
+-- Here, the combination of `student_id` and `course_id` uniquely identifies each row.
+
+-- ---
+
+-- 📌 **Key Notes:**
+-- - A table can have **only one primary key**.
+-- - The primary key ensures values are **unique** and **not NULL**.
+-- - Naming constraints is optional but recommended for clarity.
+
+-- ---
+
+-- Do you want me to also show you how a **foreign key** connects to this primary key, so you can see how tables link together?

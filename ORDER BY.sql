@@ -10,3 +10,5 @@ SELECT
 
 FROM customers
 ORDER BY score DESC;
+
+-- can order by a column that isn’t listed in the SELECT clause, and it will work just fine.

@@ -26,3 +26,73 @@ Rule for ALTER TABLE in SQL Server:
 - But if you mix operations (ADD + DROP + MODIFY), 
   you must write separate ALTER TABLE statements for each.
 */
+
+
+-- In **MySQL**, the `ALTER TABLE` statement lets you change an existing table — add, drop, or modify columns, and even set constraints like primary keys. Here are the most common patterns:
+
+-- ---
+
+-- ### 🔹 Add a New Column
+-- ```sql
+-- ALTER TABLE students
+-- ADD COLUMN email VARCHAR(100);
+-- ```
+
+-- ---
+
+-- ### 🔹 Drop a Column
+-- ```sql
+-- ALTER TABLE students
+-- DROP COLUMN age;
+-- ```
+
+-- ---
+
+-- ### 🔹 Modify a Column (change type, size, or constraints)
+-- ```sql
+-- ALTER TABLE students
+-- MODIFY COLUMN name VARCHAR(200) NOT NULL;
+-- ```
+
+-- ---
+
+-- ### 🔹 Add a Primary Key
+-- ```sql
+-- ALTER TABLE students
+-- ADD PRIMARY KEY (student_id);
+-- ```
+
+-- ---
+
+-- ### 🔹 Add Auto Increment to a Column
+-- ```sql
+-- ALTER TABLE students
+-- MODIFY COLUMN student_id INT AUTO_INCREMENT PRIMARY KEY;
+-- ```
+-- 👉 This makes `student_id` automatically increase with each new row.
+
+-- ---
+
+-- ### 🔹 Rename a Column
+-- ```sql
+-- ALTER TABLE students
+-- CHANGE COLUMN name full_name VARCHAR(100);
+-- ```
+
+-- ---
+
+-- ### 🔹 Rename the Table
+-- ```sql
+-- ALTER TABLE students
+-- RENAME TO learners;
+-- ```
+
+-- ---
+
+-- 📌 **Tips:**
+-- - Always back up your table before altering it — changes are permanent.  
+-- - Use `DESCRIBE table_name;` to check the structure after altering.  
+-- - If you’re adding `AUTO_INCREMENT`, the column must be indexed (usually as a primary key).  
+
+-- ---
+

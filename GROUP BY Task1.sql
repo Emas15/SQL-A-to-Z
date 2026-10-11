@@ -29,7 +29,7 @@ SELECT
 FROM customers
 GROUP BY country; --combine the data using GROUP BY
 
---!!! important : the column/columns after select should also be mentioned after group by
+--!!! important : the column/columns after select should also be mentioned after group by -> i mean should be same amount of column/s
 
 
 
@@ -69,3 +69,54 @@ Then aggregate functions apply inside each bucket:
 - IT → AVG(salary) = (7000+8000)/2 = 7500
 - Finance → AVG(salary) = 9000 (only one row, but still a group!)
 */
+
+
+
+--GROUP BY MULTIPLE COLS:
+-- Here’s a clear **example of `GROUP BY` with multiple columns** in MySQL so you can see how it works:
+
+-- ---
+
+-- ### 📊 Example Table: `sales`
+
+-- | id | country  | year | product   | revenue |
+-- |----|----------|------|-----------|---------|
+-- | 1  | USA      | 2024 | Laptop    | 5000    |
+-- | 2  | USA      | 2024 | Phone     | 3000    |
+-- | 3  | USA      | 2025 | Laptop    | 7000    |
+-- | 4  | Germany  | 2024 | Laptop    | 4000    |
+-- | 5  | Germany  | 2025 | Phone     | 2000    |
+-- | 6  | UK       | 2024 | Laptop    | 3500    |
+-- | 7  | UK       | 2025 | Phone     | 2500    |
+
+-- ---
+
+-- ### 🔹 Query: Group by **country and year**
+-- ```sql
+-- SELECT 
+--     country,
+--     year,
+--     SUM(revenue) AS total_revenue,
+--     COUNT(id) AS total_sales
+-- FROM sales
+-- GROUP BY country, year;
+-- ```
+
+-- ---
+
+-- ### ✅ Output
+-- | country | year | total_revenue | total_sales |
+-- |---------|------|---------------|-------------|
+-- | USA     | 2024 | 8000          | 2           |
+-- | USA     | 2025 | 7000          | 1           |
+-- | Germany | 2024 | 4000          | 1           |
+-- | Germany | 2025 | 2000          | 1           |
+-- | UK      | 2024 | 3500          | 1           |
+-- | UK      | 2025 | 2500          | 1           |
+
+-- ---
+
+-- 👉 Notice how grouping by **two columns** (`country, year`) gives a breakdown per country *and* per year, instead of just one big total per country.
+
+-- ---
+
