@@ -22,3 +22,10 @@ SET score = 0  --if i execute here, it will update all the rows score = 0
 WHERE id = 6   --<IMPORTANT>
 -- output : it will show how many rows are affected
 
+
+-----------------------------------------------------------------------------------
+-- UPDATE without a WHERE clause
+-- applies the change to ALL rows in the table.
+-- Each row is updated using its own column values.
+UPDATE runners
+SET kmh = (total_distance * 60) / time_taken_mins;

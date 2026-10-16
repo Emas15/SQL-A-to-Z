@@ -28,71 +28,78 @@ Rule for ALTER TABLE in SQL Server:
 */
 
 
--- In **MySQL**, the `ALTER TABLE` statement lets you change an existing table — add, drop, or modify columns, and even set constraints like primary keys. Here are the most common patterns:
+/*
+===========================================
+SQL Server ALTER TABLE Cheat Sheet
+===========================================
 
--- ---
+-- 1. ADD COLUMN
+-- Add a new column to the table.
+ALTER TABLE runners
+ADD age INT;
 
--- ### 🔹 Add a New Column
--- ```sql
--- ALTER TABLE students
--- ADD COLUMN email VARCHAR(100);
--- ```
+-- 2. DROP COLUMN
+-- Remove an existing column from the table.
+ALTER TABLE runners
+DROP COLUMN email;
 
--- ---
+-- 3. ALTER COLUMN
+-- Change the data type, size, or nullability of a column.
+ALTER TABLE runners
+ALTER COLUMN student_name NVARCHAR(200) NOT NULL;
 
--- ### 🔹 Drop a Column
--- ```sql
--- ALTER TABLE students
--- DROP COLUMN age;
--- ```
+-- 4. ADD CONSTRAINT
+-- Add rules to enforce data integrity.
+--   Primary Key
+ALTER TABLE runners
+ADD CONSTRAINT PK_runners PRIMARY KEY (student_id);
 
--- ---
+--   Foreign Key
+-- Ensures values in runners.school_id must exist in schools.id
+-- (referential integrity between tables).
+ALTER TABLE runners
+ADD CONSTRAINT FK_runners_school FOREIGN KEY (school_id) REFERENCES schools(id); --> schools is another table
 
--- ### 🔹 Modify a Column (change type, size, or constraints)
--- ```sql
--- ALTER TABLE students
--- MODIFY COLUMN name VARCHAR(200) NOT NULL;
--- ```
+--   Unique
+-- Ensures all values in a column are distinct.
+ALTER TABLE runners
+ADD CONSTRAINT UQ_runners_email UNIQUE (email);
 
--- ---
+--   Check
+-- Enforces a condition on values in a column.
+ALTER TABLE runners
+ADD CONSTRAINT CK_runners_distance CHECK (distance_covered > 0);
 
--- ### 🔹 Add a Primary Key
--- ```sql
--- ALTER TABLE students
--- ADD PRIMARY KEY (student_id);
--- ```
+-- 5. DROP CONSTRAINT
+-- Remove an existing constraint.
+ALTER TABLE runners
+DROP CONSTRAINT CK_runners_distance;
 
--- ---
+-- 6. ENABLE/DISABLE CONSTRAINT
+-- Temporarily disable or re-enable a constraint.
+ALTER TABLE runners
+NOCHECK CONSTRAINT FK_runners_school;
 
--- ### 🔹 Add Auto Increment to a Column
--- ```sql
--- ALTER TABLE students
--- MODIFY COLUMN student_id INT AUTO_INCREMENT PRIMARY KEY;
--- ```
--- 👉 This makes `student_id` automatically increase with each new row.
+ALTER TABLE runners
+CHECK CONSTRAINT FK_runners_school;
 
--- ---
+-- 7. SWITCH PARTITION (Advanced)
+-- Move data between partitions or tables.
+ALTER TABLE runners
+SWITCH PARTITION 1 TO runners_archive PARTITION 1;
 
--- ### 🔹 Rename a Column
--- ```sql
--- ALTER TABLE students
--- CHANGE COLUMN name full_name VARCHAR(100);
--- ```
+-- 8. RENAME COLUMN (Note!)
+-- ALTER TABLE cannot rename columns directly.
+-- Use sp_rename instead:
+EXEC sp_rename 'runners.student_name', 'full_name', 'COLUMN';
 
--- ---
+===========================================
+Summary:
+- ALTER TABLE = structural changes (columns, constraints, partitions).
+- sp_rename   = metadata changes (names).
+- REFERENCES schools(id) = links runners.school_id to schools.id,
+  enforcing referential integrity (only valid school IDs allowed).
+===========================================
+*/
 
--- ### 🔹 Rename the Table
--- ```sql
--- ALTER TABLE students
--- RENAME TO learners;
--- ```
-
--- ---
-
--- 📌 **Tips:**
--- - Always back up your table before altering it — changes are permanent.  
--- - Use `DESCRIBE table_name;` to check the structure after altering.  
--- - If you’re adding `AUTO_INCREMENT`, the column must be indexed (usually as a primary key).  
-
--- ---
 

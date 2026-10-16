@@ -16,6 +16,16 @@ INSERT:
   → The number of columns must match the number of values.
 */
 
+-- NOTE:
+-- When inserting into a table, you can specify only certain columns.
+-- For columns you skip:
+--   • If they allow NULLs → SQL Server inserts NULL.
+--   • If they have a DEFAULT → SQL Server uses that default value.
+--   • If they are NOT NULL with no default → the INSERT will fail.
+-- Best practice: always list the columns you want to insert into,
+-- ‼️‼️and make sure skipped columns are either nullable or have defaults.
+
+
 INSERT INTO customers (id, first_name, country, score)
 VALUES 
     (6, 'Anna', 'USA',NULL),
